@@ -66,7 +66,7 @@ function displayNewComment(comment) {
 
 function submitComment(comment) {
   displayNewComment(comment)
-  newCommentNumber++ 
+  
   config = {
     method: "POST",
     headers: {
@@ -81,7 +81,13 @@ function submitComment(comment) {
   fetch(commentsURL, config)
   .then(res => res.json())
   .then(data => {
-    commentIdRecord.push(data.id)
+    // Checking that I'm getting a valid response back. Not sure how to explicitly check for no errors with this api.
+    if (data.id) {
+      commentIdRecord.push(data.id)
+      newCommentNumber++ 
+    }
+
+
   })
   commentForm.reset()
 }
@@ -113,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fetch(`https://randopic.herokuapp.com/comments/${commentIdRecord[event.target.parentNode.dataset.newCommentId]}`, config)
       .then(res => res.json())
       .then(data=>{
+        // Ideally I'd check for a "No message found" error and still delete for that error, but not for a "Failed to delete what's there" error.
         if (data.message === 'Comment Successfully Destroyed') {
           event.target.parentNode.remove()
         }
