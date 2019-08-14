@@ -15,15 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch (imageURL)
   .then(response => response.json())
   .then(json => drawImageCard(json))
-  // .then(function(json){
-  //   imageCard.querySelector("img").src = json.url
-  //   imageCard.querySelector("#name").innerText = json.name
-  //   imageCard.querySelector("#likes").innerHTML = json.like_count
-  //   json.comments.forEach(comment => {
-  //     commentList.insertAdjacentHTML("beforeend", `<li>${comment.content}</li>`)
-  //   });
-  //   console.log(JSON.stringify(json));
-  // })
   
   imageCard.addEventListener("click", function(e){
     if (e.target.id === "like_button") {
@@ -42,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   commentForm.addEventListener("submit", function(e){
     e.preventDefault()
     const comment = commentForm.comment.value
-    commentList.insertAdjacentHTML("beforeend", `<li>${comment}</li>`)
+    commentList.insertAdjacentHTML("beforeend", `<li>${comment}<button id="delete_button">Delete</button></li>`)
     commentForm.reset()
     fetch (commentsURL, {
       method: "POST",
@@ -54,12 +45,24 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
+  commentList.addEventListener("click", function(e){
+    if (e.target.id === "delete_button"){
+      const commentId = e.target.parentElement.dataset.commentId
+      fetch (`https://randopic.herokuapp.com/comments/${commentId}`, {
+        method: "DELETE"
+      })
+      .then (e.target.parentElement.remove())
+      
+    }
+    
+  })
+
   function drawImageCard (json) {
     imageCard.querySelector("img").src = json.url
     imageCard.querySelector("#name").innerText = json.name
     imageCard.querySelector("#likes").innerHTML = json.like_count
     json.comments.forEach(comment => {
-      commentList.insertAdjacentHTML("beforeend", `<li>${comment.content}</li>`)
+      commentList.insertAdjacentHTML("beforeend", `<li data-comment-id=${comment.id}>${comment.content}<button id="delete_button">Delete</button></li>`)
     });
   }
 
