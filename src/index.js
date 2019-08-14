@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("%c DOM Content Loaded and Parsed!", "color: magenta");
   let images = [];
 
+  let commentId;
+
   let imageId = 3205; //Enter the id from the fetched image here
 
   const imageURL = `https://randopic.herokuapp.com/images/${imageId}`;
@@ -63,13 +65,17 @@ document.addEventListener("DOMContentLoaded", () => {
   commentForm.addEventListener("submit", e => {
     e.preventDefault();
     let comment = e.target.comment.value;
-    commentSection.insertAdjacentHTML(
-      "afterbegin",
-      `<li ${++mostRecentComment(images)
-        .id}>${comment} <button>delete</button></li> `
-    );
-    e.target.reset();
-    postComment(comment, images);
+    if (comment !== "") {
+      commentSection.insertAdjacentHTML(
+        "afterbegin",
+        `<li ${++mostRecentComment(images)
+          .id}>${comment} <button>delete</button></li> `
+      );
+      e.target.reset();
+      postComment(comment, images);
+    } else {
+      alert("Please input comment first");
+    }
   });
 
   // post comments using image Arr and comment from event listner
