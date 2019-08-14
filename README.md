@@ -1,18 +1,18 @@
 # JavaScript Code Challenge
 
 ## Allowed Resources
-This Code Challenge is designed to test your abilities in a similar situation to a technical assessment from an employer. In order to achieve an accurate assessment, there are a few restrictions on the resources you may use to complete this code challenge. 
+This Code Challenge is designed to test your abilities in a similar situation to a technical assessment from an employer. In order to achieve an accurate assessment, there are a few restrictions on the resources you may use to complete this code challenge.
 
 ### Allowed
 
  1. Your brain!
  2. The Debugger. Please run and debug your code
  3. The general internet
- 
+
 ### Not Allowed
 
  1. Other students
- 2. Any prepared materials 
+ 2. Any prepared materials
  3. Any lessons
  4. Any solution code from any lab, whether you wrote it or Flatiron School did
  5. Code from any lecture
@@ -58,7 +58,8 @@ When the page loads, you will need to make a request to the API to get the data 
 #### API Docs
 
 #### Endpoint to show an individual Image
-
+<!-- id image 3203
+https://randopic.herokuapp.com/images/3203 -->
 Visit https://randopic.herokuapp.com/ in your web browser. The backend will assign you your very own `image_id`.  **THIS IS YOUR ASSIGNED IMAGE. This prevents your classmates from editing your images and vice versa**.
 
 **Before you start anything else, locate the variable `imageId` in the `src/index.js`. Replace the value of the variable with your image id, and use it as the `/:id` parameter in your initial GET request.** This will be the image you'll be working with for this code challenge.
