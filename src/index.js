@@ -14,14 +14,14 @@ const likeButton = document.getElementById("like_button");
 const commentForm = document.getElementById("comment_form");
 const comments = document.getElementById("comments");
 
-///api URLs
+///Api URLs
 
-let imageId = 3192;
-const imageURL = `https://randopic.herokuapp.com/images/${imageId}`;
+let image_id = 3192;
+const imageURL = `https://randopic.herokuapp.com/images/${image_id}`;
 const likeURL = `https://randopic.herokuapp.com/likes/`;
 const commentsURL = `https://randopic.herokuapp.com/comments/`;
 
-//api calls and renders
+//Api calls and renders
 
 const getImage = () =>
   fetch(imageURL)
@@ -47,7 +47,7 @@ const renderComment = comment => {
   comments.innerHTML += printComment(comment);
 };
 
-///configs
+///Configs
 
 const postConfig = obj => ({
   method: "POST",
@@ -58,13 +58,13 @@ const postConfig = obj => ({
   body: JSON.stringify(obj)
 });
 
-//event listeners
+//Event Listeners
 
 const likeButtonListener = () => {
   likeButton.addEventListener("click", e => {
     const like_count = parseInt(likes.innerText) + 1;
     likes.innerText = like_count;
-    const obj = { image_id: 3192 };
+    const obj = { image_id };
     const config = postConfig(obj);
     postLike(config);
   });
@@ -74,14 +74,15 @@ const commentFormListen = () => {
   commentForm.addEventListener("submit", e => {
     e.preventDefault();
     const content = e.target.children[0].value;
-    const obj = { content, image_id: imageId };
+    const obj = { content, image_id };
     const config = postConfig(obj);
     postComment(config);
     commentForm.reset();
   });
 };
 
-//templates
+//Templates
+
 const printComment = comment => `<li>${comment.content}</li>`;
 
 const printComments = comments => {
