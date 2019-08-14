@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({image_id: '${imageID}'})
+        body: JSON.stringify({image_id: imageId})
       })
     }
   })
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({image_id: '${imageID}', content: `${comment}`})
+      body: JSON.stringify({image_id: imageId, content: `${comment}`})
     })
   })
 
