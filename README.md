@@ -218,3 +218,19 @@ Example Response:
 ```
 
 _(Hint: To get the comment's id you may have to think about changing the way you handle the response received from creating a comment)_
+
+
+
+<!-- <img src="" id="image" data-id=""/>
+<h4 id="name">Title of image goes here</h4>
+<span>Likes:
+  <span id="likes">Likes Go Here</span>
+</span>
+<button id="like_button">Like</button>
+<form id="comment_form">
+  <input id="comment_input" type="text" name="comment" placeholder="Add Comment"/>
+  <input type="submit" value="Submit"/>
+</form>
+<ul id="comments">
+     <!-- <li> for each comment goes here -->
+</ul> -->
