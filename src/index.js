@@ -20,17 +20,21 @@ const commentForm = document.getElementById('comment_form')
 
 const commentInput = document.getElementById('comment_input')
 
+const commentIdRecord = []
+
+let newCommentNumber = 0
+
 
 function renderImage(image) {
   imageDisplay.src = image.url
   nameDisplay.innerText = image.name
   likesDisplay.innerText = image.like_count
-  image.comments.forEach(commentObject => displayComment(commentObject.content))
+  image.comments.forEach(displayOldComment)
 }
 
-function displayComment(comment) {
+function displayOldComment(comment) {
   commentsDisplay.insertAdjacentHTML("beforeend", `
-    <li>${comment}</li>
+    <li>${comment.content}</li>
   `)
 }
 
@@ -54,8 +58,15 @@ function submit_like (){
   fetch(likeURL, config)
 }
 
+function displayNewComment(comment) {
+  commentsDisplay.insertAdjacentHTML("beforeend", `
+  <li data-new-comment-id=${newCommentNumber}>${comment}<button class="delete">Delete</button></li>
+`)
+}
+
 function submitComment(comment) {
-  displayComment(comment)
+  displayNewComment(comment)
+  newCommentNumber++ 
   config = {
     method: "POST",
     headers: {
@@ -68,16 +79,15 @@ function submitComment(comment) {
     })
   }
   fetch(commentsURL, config)
-
-
+  .then(res => res.json())
+  .then(data => {
+    commentIdRecord.push(data.id)
+  })
   commentForm.reset()
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
   console.log('%c DOM Content Loaded and Parsed!', 'color: magenta')
-
-  
 
   fetchImage()
 
@@ -87,6 +97,27 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     const value = commentInput.value
     submitComment(value)
+  })
+
+  commentsDisplay.addEventListener('click', event => {
+    if (event.target.className === "delete") {
+
+      config = {
+        method: "DELETE",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+
+      fetch(`https://randopic.herokuapp.com/comments/${commentIdRecord[event.target.parentNode.dataset.newCommentId]}`, config)
+      .then(res => res.json())
+      .then(data=>{
+        if (data.message === 'Comment Successfully Destroyed') {
+          event.target.parentNode.remove()
+        }
+      })
+    }
   })
 
   
