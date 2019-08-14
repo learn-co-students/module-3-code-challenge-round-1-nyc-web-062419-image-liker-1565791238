@@ -116,7 +116,7 @@ This app will use what is called _optimistic rendering_. This means the DOM will
 Send a string containing a JSON object as the request's body. In the JSON, make sure the `image_id` key has the value of your assigned image ID. This will tell your newly-created like which image it belongs to (remember database associations?😱).
 
 ```js
-POST 'https://randopic.herokuapp.com/likes'
+https://randopic.herokuapp.com/likes/POST 'https://randopic.herokuapp.com/likes'
 
 Required keys in the body of the request:
 {
