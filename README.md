@@ -36,11 +36,11 @@ A user of your app must be able to do the following things:
   <!-- - any comments that image has -->
   <!-- - the number of likes that image has -->
 
-- As a user, I can click a button to like an image. When I click, the number of likes the image has should increase by one without the page refreshing.
+<!-- - As a user, I can click a button to like an image. When I click, the number of likes the image has should increase by one without the page refreshing. -->
+<!--
+- As a user, I can enter text in an input field, and submit the form that the input is in. When I do, the app should add comment to the image without the page refreshing. I should see my new comment _below_ any previous comments. -->
 
-- As a user, I can enter text in an input field, and submit the form that the input is in. When I do, the app should add comment to the image without the page refreshing. I should see my new comment _below_ any previous comments.
-
-- As a user, when I refresh the page, any comments or likes I have added should still be there. When a user adds a like or a comment, make sure their changes are sent to the backend API.
+<!-- - As a user, when I refresh the page, any comments or likes I have added should still be there. When a user adds a like or a comment, make sure their changes are sent to the backend API. -->
 
 ## Functionality demo
 

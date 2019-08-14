@@ -1,17 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("%c DOM Content Loaded and Parsed!", "color: magenta");
-
   getImage();
   likeButtonListener();
   commentFormListen();
 });
 
-///api calls
+///Global Selectors
 
-let imageId = 3192; //Enter the id from the fetched image here
+const nameTitle = document.getElementById("name");
+const pageImage = document.getElementById("image");
+const likes = document.getElementById("likes");
+const likeButton = document.getElementById("like_button");
+const commentForm = document.getElementById("comment_form");
+const comments = document.getElementById("comments");
+
+///api URLs
+
+let imageId = 3192;
 const imageURL = `https://randopic.herokuapp.com/images/${imageId}`;
 const likeURL = `https://randopic.herokuapp.com/likes/`;
 const commentsURL = `https://randopic.herokuapp.com/comments/`;
+
+//api calls and renders
 
 const getImage = () =>
   fetch(imageURL)
@@ -19,10 +29,6 @@ const getImage = () =>
     .then(json => renderImage(json));
 
 const renderImage = image => {
-  const pageImage = document.getElementById("image");
-  const nameTitle = document.getElementById("name");
-  const likes = document.getElementById("likes");
-  const comments = document.getElementById("comments");
   pageImage.src = image.url;
   nameTitle.innerText = image.name;
   likes.innerText = image.like_count;
@@ -38,11 +44,8 @@ const postComment = config => {
     .then(json => renderComment(json));
 };
 const renderComment = comment => {
-  const comments = document.getElementById("comments");
   comments.innerHTML += printComment(comment);
 };
-
-//const renderImage
 
 ///configs
 
@@ -54,11 +57,10 @@ const postConfig = obj => ({
   },
   body: JSON.stringify(obj)
 });
+
 //event listeners
 
 const likeButtonListener = () => {
-  const likeButton = document.getElementById("like_button");
-  const likes = document.getElementById("likes");
   likeButton.addEventListener("click", e => {
     const like_count = parseInt(likes.innerText) + 1;
     likes.innerText = like_count;
@@ -69,8 +71,6 @@ const likeButtonListener = () => {
 };
 
 const commentFormListen = () => {
-  const commentForm = document.getElementById("comment_form");
-
   commentForm.addEventListener("submit", e => {
     e.preventDefault();
     const content = e.target.children[0].value;
@@ -83,6 +83,7 @@ const commentFormListen = () => {
 
 //templates
 const printComment = comment => `<li>${comment.content}</li>`;
+
 const printComments = comments => {
   let str = ``;
   comments.forEach(comment => {
